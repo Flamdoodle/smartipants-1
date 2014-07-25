@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-  
+
   context '#create' do
 
     describe 'valid info' do
@@ -149,6 +149,18 @@ describe UsersController do
     it 'redirects to root path' do
       delete :destroy, id: @user, user: FactoryGirl.attributes_for(:user)
       expect(response).to redirect_to root_path
-    end      
+    end
+  end
+
+  context '#profile' do
+    it 'is a valid route' do
+      expect(response.status).to eq 200
+    end
+  end
+
+  context '#data' do
+    it 'is a valid route' do
+      expect(response.status).to eq 200
+    end
   end
 end

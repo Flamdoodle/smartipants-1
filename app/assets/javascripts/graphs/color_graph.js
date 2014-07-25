@@ -1,19 +1,21 @@
 var buildColorGraph = function() {
-
-        $.ajax({url: '/users/data', async: false}).done(function(response){
-                stats = response;
-                stats_data = []
-                stats_data3 = []
-                false_states = []
-                stats_data.push(Math.round((stats.colors_true[1] || 0)/(20.0) *100))
-                stats_data.push(Math.round((stats.colors_true[2] || 0)/(20.0) *100))
-                stats_data.push(Math.round((stats.colors_true[3] || 0)/(20.0) *100))
-                stats_data.push(Math.round((stats.colors_true[4] || 0)/(20.0) *100))
-                stats_data_total = (eval(stats_data.join('+')))
-                false_states.push(100 - stats_data_total)
-
-
-            });
+    var stats,
+        stats_data,
+        stats_data3,
+        false_states;
+    $.ajax({url: '/users/data', async: false})
+    .done(function(response){
+        stats = response;
+        stats_data = [];
+        stats_data3 = [];
+        false_states = [];
+        stats_data.push(Math.round((stats.colors_true[1] || 0)/(20.0) *100));
+        stats_data.push(Math.round((stats.colors_true[2] || 0)/(20.0) *100));
+        stats_data.push(Math.round((stats.colors_true[3] || 0)/(20.0) *100));
+        stats_data.push(Math.round((stats.colors_true[4] || 0)/(20.0) *100));
+        stats_data_total = (eval(stats_data.join('+')));
+        false_states.push(100 - stats_data_total);
+    });
 
     $(function () {
             var colors = Highcharts.getOptions().colors,

@@ -1,18 +1,20 @@
 var buildPositionGraph = function() {
-        $.ajax({url: '/users/data', async: false}).done(function(response){
-                var stats = response;
-                stats_data4 = []
-                false_states_array = []
-                stats_data4.push(Math.round((stats.positions_true[1] || 0)/(20.0) *100))
-                stats_data4.push(Math.round((stats.positions_true[2] || 0)/(20.0) *100))
-                stats_data4.push(Math.round((stats.positions_true[3] || 0)/(20.0) *100))
-                stats_data4.push(Math.round((stats.positions_true[4] || 0)/(20.0) *100))
-                stats_data4_total = (eval(stats_data4.join('+')))
-                false_states_array.push(100 - stats_data4_total)
-
-            });
-    $(function () {
-
+    var stats,
+        stats_data4,
+        false_states_array;
+    $.ajax({url: '/users/data', async: false})
+    .done(function(response){
+        stats = response;
+        stats_data4 = []
+        false_states_array = []
+        stats_data4.push(Math.round((stats.positions_true[1] || 0)/(20.0) *100))
+        stats_data4.push(Math.round((stats.positions_true[2] || 0)/(20.0) *100))
+        stats_data4.push(Math.round((stats.positions_true[3] || 0)/(20.0) *100))
+        stats_data4.push(Math.round((stats.positions_true[4] || 0)/(20.0) *100))
+        stats_data4_total = (eval(stats_data4.join('+')))
+        false_states_array.push(100 - stats_data4_total)
+    });
+    $(function (){
             var colors = Highcharts.getOptions().colors,
                 categories = ['hit','miss'],
                 name = 'Position',

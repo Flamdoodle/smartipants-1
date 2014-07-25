@@ -18,24 +18,24 @@ class SplineGraphBrain
     User.find(player).games.all.each do |game|
       color_answer = []
       color_id = []
-        game.rounds.each do |round|
-          color_answer << round.color_correct
-          color_id << round.color_id
-        end
-        @color_answer << color_answer
-        @color_id << color_id
+      game.rounds.each do |round|
+        color_answer << round.color_correct
+        color_id << round.color_id
       end
-      @answer3 = []
-      @color_answer.each do |answer|
-        response1 = []
-        answer.each do |bool|
-          if bool == true
-             response1 << bool
-         end
+      @color_answer << color_answer
+      @color_id << color_id
+    end
+    @answer3 = []
+    @color_answer.each do |answer|
+      response1 = []
+      answer.each do |bool|
+        if bool == true
+          response1 << bool
         end
-            @answer3 << response1.length
       end
-      @answer3
+      @answer3 << response1.length
+    end
+    @answer3
   end
 
   def self.audio_correct(player)
@@ -46,28 +46,28 @@ class SplineGraphBrain
       audio_answer = []
       audio_id = []
       @game_n << game.n
-        game.rounds.each do |round|
-          audio_answer << round.audio_correct
-          audio_id << round.audio_id
-        end
-        @audio_answer << audio_answer
-        @audio_id << audio_id
+      game.rounds.each do |round|
+        audio_answer << round.audio_correct
+        audio_id << round.audio_id
       end
-      @answer4 = []
-      @audio_answer.each do |answer|
-        response = []
-        answer.each do |bool|
-          if bool == true
-             response << bool
-         end
+      @audio_answer << audio_answer
+      @audio_id << audio_id
+    end
+    @answer4 = []
+    @audio_answer.each do |answer|
+      response = []
+      answer.each do |bool|
+        if bool == true
+          response << bool
         end
-            @answer4 << response.length
       end
+      @answer4 << response.length
+    end
 
-      @game_n = @game_n.zip(@answer4).flatten.compact
-      @game_n = @game_n.each_slice(2).to_a
-      @answer4
-      @game_n
+    @game_n = @game_n.zip(@answer4).flatten.compact
+    @game_n = @game_n.each_slice(2).to_a
+    @answer4
+    @game_n
   end
 
   def self.position_correct(player)
@@ -76,24 +76,24 @@ class SplineGraphBrain
     User.find(player).games.all.each do |game|
       position_answer = []
       position_id = []
-        game.rounds.each do |round|
-          position_answer << round.position_correct
-          position_id << round.position
-        end
-        @position_answer << position_answer
-        @position_id << position_id
+      game.rounds.each do |round|
+        position_answer << round.position_correct
+        position_id << round.position
       end
-      @answer6 = []
-      @position_answer.each do |answer|
-        response = []
-        answer.each do |bool|
-          if bool == true
-             response << bool
-         end
+      @position_answer << position_answer
+      @position_id << position_id
+    end
+    @answer6 = []
+    @position_answer.each do |answer|
+      response = []
+      answer.each do |bool|
+        if bool == true
+          response << bool
         end
-            @answer6 << response.length
       end
-      @answer6
+      @answer6 << response.length
+    end
+    @answer6
   end
 
   def self.total_correct(player)

@@ -63,7 +63,6 @@ describe GameBuilder do
 
   context 'on #create_game' do
     it 'saves a valid game to the database' do
-      puts valid_game.inspect
       expect(game_builder_valid.create_game).to eq true
     end
     it 'doesn\'t save an invalid game' do

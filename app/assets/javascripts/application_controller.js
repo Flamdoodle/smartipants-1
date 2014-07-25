@@ -1,5 +1,6 @@
 function ApplicationController(jQSelector){
     this.jQSelector = jQSelector;
+    this.navbarController = new NavbarController();
     this.gameView = new GameView(jQSelector, this);
     this.gameOptionsController = new GameOptionsController();
     this.graphBuilder = new GraphBuilder();
