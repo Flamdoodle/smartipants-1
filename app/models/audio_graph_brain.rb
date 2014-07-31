@@ -1,11 +1,15 @@
 class AudioGraphBrain
-  def self.user(player)
-    @user = player
+  def initialize(player)
+    @player = player
   end
 
-  def self.audio_true(player)
+  def user
+    @user = @player
+  end
+
+  def audio_true
     @audio_true_array = []
-    @user = User.find(player)
+    @user = User.find(@player)
     @game = @user.games.last
     @true_rounds = @game.rounds.where(audio_correct: true)
     @true_rounds.each do |round|

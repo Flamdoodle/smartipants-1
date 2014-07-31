@@ -1,8 +1,11 @@
 class PositionGraphBrain
+  def initialize(player)
+    @player = player
+  end
 
-  def self.position_true(player)
+  def position_true
     @position_true_array = []
-    @user = User.find(player)
+    @user = User.find(@player)
     @game = @user.games.last
     @true_rounds = @game.rounds.where(position_correct: true)
     @true_rounds.each do |round|

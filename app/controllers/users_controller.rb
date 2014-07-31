@@ -12,11 +12,12 @@ class UsersController < ApplicationController
 
 def profile
   if session[:user_id]
-    @color_correct = SplineGraphBrain.color_correct(session[:user_id])
-    @audio_correct = SplineGraphBrain.audio_correct(session[:user_id])
-    @position_correct = SplineGraphBrain.position_correct(session[:user_id])
-    @total_correct = SplineGraphBrain.total_correct(session[:user_id])
-    @games = SplineGraphBrain.game_dates(session[:user_id])
+    spline_graph_brain = SplineGraphBrain.new(session[:user_id])
+    @color_correct = spline_graph_brain.color_correct
+    @audio_correct = spline_graph_brain.audio_correct
+    @position_correct = spline_graph_brain.position_correct
+    @total_correct = spline_graph_brain.total_correct
+    @games = spline_graph_brain.game_dates
     @username = User.find(session[:user_id]).username
   else
     redirect_to root_path
@@ -24,16 +25,22 @@ def profile
 end
 
   def data
-    render json: {games: SplineGraphBrain.game_dates(session[:user_id]),
-         total_correct: SplineGraphBrain.total_correct(session[:user_id]),
-         position_correct: SplineGraphBrain.position_correct(session[:user_id]),
-         audio_correct: SplineGraphBrain.audio_correct(session[:user_id]),
-         color_correct: SplineGraphBrain.color_correct(session[:user_id]),
-         n: SplineGraphBrain.n(session[:user_id]),
-         positions_true: PositionGraphBrain.position_true(session[:user_id]),
-         colors_true: ColorGraphBrain.color_true(session[:user_id]),
-         audios_true: AudioGraphBrain.audio_true(session[:user_id]),
-         user_object: User.find(session[:user_id])}.to_json
+    user_id = session[:user_id]
+    spline_graph_brain = SplineGraphBrain.new(user_id)
+    position_graph_brain = PositionGraphBrain.new(user_id)
+    color_graph_brain = ColorGraphBrain.new(user_id)
+    audio_graph_brain = AudioGraphBrain.new(user_id)
+
+    render json: {games: spline_graph_brain.game_dates,
+         color_correct: spline_graph_brain.color_correct,
+         audio_correct: spline_graph_brain.audio_correct,
+         position_correct: spline_graph_brain.position_correct,
+         total_correct: spline_graph_brain.total_correct,
+         n: spline_graph_brain.n,
+         positions_true: position_graph_brain.position_true,
+         colors_true: color_graph_brain.color_true,
+         audios_true: audio_graph_brain.audio_true,
+         user_object: User.find(user_id)}.to_json
   end
 
   def login
