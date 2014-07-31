@@ -1,9 +1,14 @@
 class SplineGraphBrain
-  def self.user(player)
-    @user = player
+  def initialize(player)
+    @player = player
   end
-  def self.game_dates(player)
-    @user = User.find(player)
+
+  def user
+    @user = @player
+  end
+
+  def game_dates
+    @user = User.find(@player)
     @games = @user.games.all
     @game_dates = []
     @games.each do |game|
@@ -12,10 +17,10 @@ class SplineGraphBrain
     @game_dates
   end
 
-  def self.color_correct(player)
+  def color_correct
     @color_answer = []
     @color_id = []
-    User.find(player).games.all.each do |game|
+    User.find(@player).games.all.each do |game|
       color_answer = []
       color_id = []
       game.rounds.each do |round|
@@ -38,11 +43,11 @@ class SplineGraphBrain
     @answer3
   end
 
-  def self.audio_correct(player)
+  def audio_correct
     @audio_answer = []
     @audio_id = []
     @game_n = []
-    User.find(player).games.all.each do |game|
+    User.find(@player).games.all.each do |game|
       audio_answer = []
       audio_id = []
       @game_n << game.n
@@ -70,10 +75,10 @@ class SplineGraphBrain
     @game_n
   end
 
-  def self.position_correct(player)
+  def position_correct
     @position_answer = []
     @position_id = []
-    User.find(player).games.all.each do |game|
+    User.find(@player).games.all.each do |game|
       position_answer = []
       position_id = []
       game.rounds.each do |round|
@@ -96,9 +101,9 @@ class SplineGraphBrain
     @answer6
   end
 
-  def self.total_correct(player)
+  def total_correct
     @game_type = []
-    @user = User.find(player)
+    @user = User.find(@player)
     @game = @user.games.last
     @answer6.each_with_index do |answer, ind|
       if @answer3[ind]==0 && @answer4[ind]==0
@@ -117,8 +122,8 @@ class SplineGraphBrain
   end
 
 
-  def self.n(player)
-    @user = User.find(player)
+  def n
+    @user = User.find(@player)
     @game = @user.games.last
     @n = @game.n
   end
